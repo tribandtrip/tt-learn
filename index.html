@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TRIB & TRIP · Diagnóstico Inicial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -17,20 +17,20 @@
       --borde: #E0DDD6;
       --gris: #666666;
     }
-    body { font-family: 'DM Sans', sans-serif; background: var(--arena); color: var(--carbon); min-height: 100vh; }
+    body { font-family: 'Inter', sans-serif; background: var(--arena); color: var(--carbon); min-height: 100vh; }
 
     /* HEADER */
     .tt-header { background: var(--verde); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .tt-logo-area { display: flex; align-items: center; gap: .75rem; }
-    .tt-logo-mark { background: var(--arena); color: var(--verde); font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-    .tt-brand-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; letter-spacing: .05em; color: var(--arena); }
+    .tt-logo-mark { background: var(--arena); color: var(--verde); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .tt-brand-name { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: .05em; color: var(--arena); }
     .tt-brand-sub { font-size: .6rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; opacity: .7; color: var(--arena); }
     .tt-badge { background: rgba(237,232,223,.15); color: var(--arena); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(237,232,223,.3); }
 
     /* HERO */
     .tt-hero { background: var(--verde); padding: 2.5rem 2rem 4rem; text-align: center; }
     .tt-course-label { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ocre); margin-bottom: .6rem; font-weight: 500; }
-    .tt-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 700; color: var(--arena); margin-bottom: .4rem; line-height: 1.2; }
+    .tt-hero h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 700; color: var(--arena); margin-bottom: .4rem; line-height: 1.2; }
     .tt-hero-sub { font-size: .9rem; color: rgba(237,232,223,.7); font-weight: 300; margin-bottom: 1.5rem; }
     .tt-steps { display: flex; justify-content: center; flex-wrap: wrap; gap: 0; margin-top: 1rem; }
     .tt-step { display: flex; align-items: center; gap: .35rem; font-size: .68rem; color: rgba(237,232,223,.45); }
@@ -45,7 +45,7 @@
     /* BODY */
     .tt-body { padding: 1.75rem 1.25rem; max-width: 720px; margin: 0 auto; }
     .tt-intro-card { background: var(--blanco); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; border-left: 4px solid var(--verde); }
-    .tt-intro-card h2 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .tt-intro-card h2 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
     .tt-intro-card p { font-size: .83rem; color: var(--gris); line-height: 1.65; }
     .tt-section-title { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--verde); font-weight: 500; margin: 1.75rem 0 .75rem; }
     .tt-block { background: var(--blanco); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: .65rem; }
@@ -58,7 +58,7 @@
     .tt-hint { font-size: .68rem; color: #999; margin-bottom: .35rem; display: block; font-style: italic; }
     input[type=text], input[type=email], textarea {
       width: 100%; padding: .5rem .7rem; border: 1.5px solid var(--borde); border-radius: 8px;
-      font-size: .82rem; font-family: 'DM Sans', sans-serif; color: var(--carbon);
+      font-size: .82rem; font-family: 'Inter', sans-serif; color: var(--carbon);
       background: #FAFAF8; transition: border-color .2s; outline: none;
     }
     input[type=text]:focus, input[type=email]:focus, textarea:focus { border-color: var(--verde); background: var(--blanco); }
@@ -72,7 +72,7 @@
     .tt-check-label { display: flex; align-items: center; gap: .55rem; font-size: .8rem; color: #555; cursor: pointer; padding: .3rem 0; user-select: none; }
     .tt-check-label input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--verde); flex-shrink: 0; }
     .tt-scale { display: flex; gap: .35rem; }
-    .tt-scale-btn { width: 36px; height: 36px; border: 1.5px solid var(--borde); border-radius: 8px; background: #FAFAF8; font-size: .82rem; cursor: pointer; font-family: 'DM Sans', sans-serif; color: #555; transition: all .2s; flex-shrink: 0; }
+    .tt-scale-btn { width: 36px; height: 36px; border: 1.5px solid var(--borde); border-radius: 8px; background: #FAFAF8; font-size: .82rem; cursor: pointer; font-family: 'Inter', sans-serif; color: #555; transition: all .2s; flex-shrink: 0; }
     .tt-scale-btn:hover { border-color: var(--verde); }
     .tt-scale-btn.sel { background: var(--verde); border-color: var(--verde); color: var(--arena); font-weight: 500; }
     .tt-scale-labels { display: flex; justify-content: space-between; font-size: .62rem; color: #999; margin-top: 4px; }
@@ -89,13 +89,13 @@
     /* SUCCESS */
     .tt-success { display: none; text-align: center; padding: 2.5rem 2rem; background: var(--blanco); border-radius: 16px; margin-bottom: 1rem; }
     .tt-success-icon { width: 56px; height: 56px; background: var(--verde); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: var(--arena); font-size: 1.5rem; }
-    .tt-success h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: .5rem; }
+    .tt-success h2 { font-family: 'DM Sans', sans-serif; font-size: 1.3rem; margin-bottom: .5rem; }
     .tt-success p { font-size: .85rem; color: var(--gris); line-height: 1.65; }
 
     /* LOCKED */
     .tt-locked-banner { background: var(--arena); border: 1.5px dashed var(--ocre); border-radius: 12px; padding: 1.1rem 1.5rem; text-align: center; margin-top: 1.25rem; }
     .tt-locked-icon { font-size: 1.3rem; margin-bottom: .4rem; }
-    .tt-locked-title { font-family: 'Playfair Display', serif; font-size: .95rem; color: var(--verde); margin-bottom: .2rem; }
+    .tt-locked-title { font-family: 'DM Sans', sans-serif; font-size: .95rem; color: var(--verde); margin-bottom: .2rem; }
     .tt-locked-text { font-size: .75rem; color: #888; }
 
     /* ERROR */
@@ -116,7 +116,7 @@
 
 <header class="tt-header">
   <div class="tt-logo-area">
-    <div class="tt-logo-mark">T&T</div>
+    <img src="logo-header.png" alt="TRIB & TRIP" style="height:40px;width:auto;display:block;">
     <div>
       <div class="tt-brand-name">TRIB & TRIP</div>
       <div class="tt-brand-sub">Formación · IA para tu negocio</div>
