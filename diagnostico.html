@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRIB & TRIP · Diagnóstico Inicial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;700&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --verde: #4A5E3A;
+      --arena: #EDE8DF;
+      --ocre: #C4A35A;
+      --carbon: #2D2D2D;
+      --blanco: #ffffff;
+      --borde: #E0DDD6;
+      --gris: #666666;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--arena); color: var(--carbon); min-height: 100vh; }
+
+    /* HEADER */
+    .tt-header { background: var(--verde); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .tt-logo-area { display: flex; align-items: center; gap: .75rem; }
+    .tt-logo-mark { background: var(--arena); color: var(--verde); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .tt-brand-name { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: .05em; color: var(--arena); }
+    .tt-brand-sub { font-size: .6rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; opacity: .7; color: var(--arena); }
+    .tt-badge { background: rgba(237,232,223,.15); color: var(--arena); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(237,232,223,.3); }
+
+    /* HERO */
+    .tt-hero { background: var(--verde); padding: 2.5rem 2rem 4rem; text-align: center; }
+    .tt-course-label { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ocre); margin-bottom: .6rem; font-weight: 500; }
+    .tt-hero h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 700; color: var(--arena); margin-bottom: .4rem; line-height: 1.2; }
+    .tt-hero-sub { font-size: .9rem; color: rgba(237,232,223,.7); font-weight: 300; margin-bottom: 1.5rem; }
+    .tt-steps { display: flex; justify-content: center; flex-wrap: wrap; gap: 0; margin-top: 1rem; }
+    .tt-step { display: flex; align-items: center; gap: .35rem; font-size: .68rem; color: rgba(237,232,223,.45); }
+    .tt-step.active { color: var(--arena); }
+    .tt-step-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(237,232,223,.25); }
+    .tt-step.active .tt-step-dot { background: var(--arena); }
+    .tt-step-line { width: 28px; height: 1px; background: rgba(237,232,223,.2); margin: 0 4px; }
+    .tt-progress-bar { background: rgba(237,232,223,.2); border-radius: 20px; height: 3px; width: 180px; margin: 1.25rem auto 0; overflow: hidden; }
+    .tt-progress-fill { height: 100%; background: var(--ocre); border-radius: 20px; width: 0%; transition: width .4s ease; }
+    .tt-progress-label { font-size: .62rem; color: rgba(237,232,223,.55); margin-top: .35rem; letter-spacing: .06em; }
+
+    /* BODY */
+    .tt-body { padding: 1.75rem 1.25rem; max-width: 720px; margin: 0 auto; }
+    .tt-intro-card { background: var(--blanco); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; border-left: 4px solid var(--verde); }
+    .tt-intro-card h2 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .tt-intro-card p { font-size: .83rem; color: var(--gris); line-height: 1.65; }
+    .tt-section-title { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--verde); font-weight: 500; margin: 1.75rem 0 .75rem; }
+    .tt-block { background: var(--blanco); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: .65rem; }
+    .tt-block-header { display: flex; align-items: center; gap: .65rem; margin-bottom: .9rem; }
+    .tt-block-num { width: 26px; height: 26px; background: var(--verde); color: var(--arena); border-radius: 50%; font-size: .72rem; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .tt-block-title { font-size: .88rem; font-weight: 500; }
+    .tt-field { margin-bottom: .9rem; }
+    .tt-field:last-child { margin-bottom: 0; }
+    .tt-label { font-size: .76rem; font-weight: 500; color: var(--verde); margin-bottom: .3rem; display: block; }
+    .tt-hint { font-size: .68rem; color: #999; margin-bottom: .35rem; display: block; font-style: italic; }
+    input[type=text], input[type=email], textarea {
+      width: 100%; padding: .5rem .7rem; border: 1.5px solid var(--borde); border-radius: 8px;
+      font-size: .82rem; font-family: 'Inter', sans-serif; color: var(--carbon);
+      background: #FAFAF8; transition: border-color .2s; outline: none;
+    }
+    input[type=text]:focus, input[type=email]:focus, textarea:focus { border-color: var(--verde); background: var(--blanco); }
+    textarea { resize: vertical; min-height: 65px; }
+    .tt-radio-group { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tt-radio-label { display: flex; align-items: center; gap: .35rem; padding: .35rem .75rem; border: 1.5px solid var(--borde); border-radius: 20px; font-size: .75rem; cursor: pointer; transition: all .2s; color: #555; background: #FAFAF8; user-select: none; }
+    .tt-radio-label:hover { border-color: var(--verde); color: var(--verde); }
+    .tt-radio-label input { display: none; }
+    .tt-radio-label.selected { background: var(--verde); border-color: var(--verde); color: var(--arena); }
+    .tt-checkbox-group { display: flex; flex-direction: column; gap: .4rem; }
+    .tt-check-label { display: flex; align-items: center; gap: .55rem; font-size: .8rem; color: #555; cursor: pointer; padding: .3rem 0; user-select: none; }
+    .tt-check-label input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--verde); flex-shrink: 0; }
+    .tt-scale { display: flex; gap: .35rem; }
+    .tt-scale-btn { width: 36px; height: 36px; border: 1.5px solid var(--borde); border-radius: 8px; background: #FAFAF8; font-size: .82rem; cursor: pointer; font-family: 'Inter', sans-serif; color: #555; transition: all .2s; flex-shrink: 0; }
+    .tt-scale-btn:hover { border-color: var(--verde); }
+    .tt-scale-btn.sel { background: var(--verde); border-color: var(--verde); color: var(--arena); font-weight: 500; }
+    .tt-scale-labels { display: flex; justify-content: space-between; font-size: .62rem; color: #999; margin-top: 4px; }
+    .tt-divider { height: 1px; background: #F0EDE6; margin: .85rem 0; }
+
+    /* SUBMIT */
+    .tt-submit-area { text-align: center; padding: 2rem 0 1rem; }
+    .tt-btn-submit { background: var(--verde); color: var(--arena); border: none; padding: .9rem 2.5rem; border-radius: 50px; font-size: .92rem; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; letter-spacing: .03em; transition: all .2s; }
+    .tt-btn-submit:hover:not(:disabled) { background: #3a4c2c; transform: translateY(-1px); }
+    .tt-btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+    .tt-submit-note { font-size: .7rem; color: #999; margin-top: .65rem; }
+    .tt-sending { font-size: .78rem; color: var(--verde); margin-top: .5rem; display: none; }
+
+    /* SUCCESS */
+    .tt-success { display: none; text-align: center; padding: 2.5rem 2rem; background: var(--blanco); border-radius: 16px; margin-bottom: 1rem; }
+    .tt-success-icon { width: 56px; height: 56px; background: var(--verde); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: var(--arena); font-size: 1.5rem; }
+    .tt-success h2 { font-family: 'DM Sans', sans-serif; font-size: 1.3rem; margin-bottom: .5rem; }
+    .tt-success p { font-size: .85rem; color: var(--gris); line-height: 1.65; }
+
+    /* LOCKED */
+    .tt-locked-banner { background: var(--arena); border: 1.5px dashed var(--ocre); border-radius: 12px; padding: 1.1rem 1.5rem; text-align: center; margin-top: 1.25rem; }
+    .tt-locked-icon { font-size: 1.3rem; margin-bottom: .4rem; }
+    .tt-locked-title { font-family: 'DM Sans', sans-serif; font-size: .95rem; color: var(--verde); margin-bottom: .2rem; }
+    .tt-locked-text { font-size: .75rem; color: #888; }
+
+    /* ERROR */
+    .tt-error { display: none; background: #fff3f3; border: 1px solid #ffcccc; border-radius: 8px; padding: .75rem 1rem; font-size: .78rem; color: #cc3333; margin-top: .75rem; }
+
+    /* FOOTER */
+    .tt-footer { background: var(--carbon); color: rgba(237,232,223,.45); text-align: center; padding: 1.25rem; font-size: .68rem; letter-spacing: .08em; margin-top: 2rem; }
+    .tt-footer span { color: var(--ocre); }
+
+    @media (max-width: 480px) {
+      .tt-header { padding: 1rem 1.25rem; }
+      .tt-body { padding: 1.25rem 1rem; }
+      .tt-block { padding: 1rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="tt-header">
+  <div class="tt-logo-area">
+    <img src="logo-header.png" alt="TRIB & TRIP" style="height:40px;width:auto;display:block;">
+    <div>
+      <div class="tt-brand-name">TRIB & TRIP</div>
+      <div class="tt-brand-sub">Formación · IA para tu negocio</div>
+    </div>
+  </div>
+  <a href="index.html" style="color:rgba(237,232,223,.7);font-size:.78rem;text-decoration:none;">← Inicio</a><div class="tt-badge">Diagnóstico</div>
+</header>
+
+<section class="tt-hero">
+  <div class="tt-course-label">Curso personalizado · IA aplicada</div>
+  <h1>Empecemos a conocerte</h1>
+  <p class="tt-hero-sub">10 minutos que definirán tu curso. Sin respuestas incorrectas.</p>
+  <div class="tt-steps">
+    <div class="tt-step active"><div class="tt-step-dot"></div><span>Diagnóstico</span></div>
+    <div class="tt-step-line"></div>
+    <div class="tt-step"><div class="tt-step-dot"></div><span>Activación</span></div>
+    <div class="tt-step-line"></div>
+    <div class="tt-step"><div class="tt-step-dot"></div><span>Módulo 1</span></div>
+    <div class="tt-step-line"></div>
+    <div class="tt-step"><div class="tt-step-dot"></div><span>Módulo 2</span></div>
+  </div>
+  <div class="tt-progress-bar"><div class="tt-progress-fill" id="progressFill"></div></div>
+  <p class="tt-progress-label" id="progressLabel">0 de 7 bloques completados</p>
+</section>
+
+<main class="tt-body" id="formArea">
+
+  <div class="tt-intro-card">
+    <h2>¡Bienvenida! 👋</h2>
+    <p>Contesta con calma, sin prisa. Cuando termines, tu formador recibirá un informe completo y preparará el primer módulo adaptado exactamente a ti y a tu negocio.</p>
+  </div>
+
+  <!-- IDENTIFICACIÓN -->
+  <div class="tt-block">
+    <div class="tt-field">
+      <label class="tt-label">¿Cómo te llamas?</label>
+      <input type="text" id="f_nombre" placeholder="Tu nombre y apellido" oninput="updateProgress()">
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿A qué se dedica tu negocio? <small style="font-weight:300;color:#999">(en una frase)</small></label>
+      <input type="text" id="f_negocio" placeholder="Ej: diseño de identidad visual y branding para pequeñas empresas">
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">Tu email <small style="font-weight:300;color:#999">(para enviarte confirmación)</small></label>
+      <input type="email" id="f_email" placeholder="tu@email.com">
+    </div>
+  </div>
+
+  <!-- BLOQUE 1 -->
+  <div class="tt-section-title">Tu contexto</div>
+  <div class="tt-block">
+    <div class="tt-block-header"><div class="tt-block-num">1</div><div class="tt-block-title">Quién eres más allá del negocio</div></div>
+    <div class="tt-field">
+      <label class="tt-label">¿Cómo es tu día a día?</label>
+      <span class="tt-hint">Selecciona todo lo que aplica</span>
+      <div class="tt-checkbox-group" id="cg_contexto">
+        <label class="tt-check-label"><input type="checkbox" value="Tengo hijos pequeños"> Tengo hijos pequeños que requieren mucha atención</label>
+        <label class="tt-check-label"><input type="checkbox" value="Mi pareja también trabaja a jornada completa"> Mi pareja también trabaja a jornada completa</label>
+        <label class="tt-check-label"><input type="checkbox" value="Trabajo desde casa"> Trabajo desde casa habitualmente</label>
+        <label class="tt-check-label"><input type="checkbox" value="Tengo estudio propio"> Tengo un espacio/estudio propio fuera de casa</label>
+        <label class="tt-check-label"><input type="checkbox" value="Horarios muy irregulares"> Tengo horarios muy irregulares según temporada</label>
+        <label class="tt-check-label"><input type="checkbox" value="Cuido familiares"> Cuido también de familiares (padres, etc.)</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Cuántas horas reales puedes dedicar a tu negocio al día?</label>
+      <div class="tt-radio-group" data-name="horas">
+        <label class="tt-radio-label"><input type="radio" name="horas" value="Menos de 4h"> Menos de 4h</label>
+        <label class="tt-radio-label"><input type="radio" name="horas" value="4-6h"> 4–6h</label>
+        <label class="tt-radio-label"><input type="radio" name="horas" value="6-8h"> 6–8h</label>
+        <label class="tt-radio-label"><input type="radio" name="horas" value="Más de 8h"> Más de 8h</label>
+        <label class="tt-radio-label"><input type="radio" name="horas" value="Varía mucho"> Varía mucho</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 2 -->
+  <div class="tt-section-title">Tu nivel digital</div>
+  <div class="tt-block">
+    <div class="tt-block-header"><div class="tt-block-num">2</div><div class="tt-block-title">Herramientas que ya usas</div></div>
+    <div class="tt-field">
+      <label class="tt-label">Diseño gráfico</label>
+      <div class="tt-checkbox-group" id="cg_diseno">
+        <label class="tt-check-label"><input type="checkbox" value="Adobe Illustrator/Photoshop"> Adobe Illustrator / Photoshop</label>
+        <label class="tt-check-label"><input type="checkbox" value="Canva diseño estático"> Canva (diseño estático)</label>
+        <label class="tt-check-label"><input type="checkbox" value="Canva vídeo/animaciones"> Canva (vídeo / animaciones)</label>
+        <label class="tt-check-label"><input type="checkbox" value="Figma"> Figma</label>
+        <label class="tt-check-label"><input type="checkbox" value="Procreate/iPad"> Procreate / iPad</label>
+      </div>
+    </div>
+    <div class="tt-divider"></div>
+    <div class="tt-field">
+      <label class="tt-label">Foto, vídeo y contenido</label>
+      <div class="tt-checkbox-group" id="cg_video">
+        <label class="tt-check-label"><input type="checkbox" value="Fotos con móvil para redes"> Hago fotos con el móvil para mis redes</label>
+        <label class="tt-check-label"><input type="checkbox" value="Cámara con criterio"> Tengo cámara y sé usarla con criterio</label>
+        <label class="tt-check-label"><input type="checkbox" value="CapCut"> Edito vídeo con CapCut</label>
+        <label class="tt-check-label"><input type="checkbox" value="Otra app edición vídeo (VN, InShot, Premiere...)"> Edito vídeo con otra app (VN, InShot, Premiere...)</label>
+        <label class="tt-check-label"><input type="checkbox" value="Grabo Reels/vídeos cortos"> Grabo Reels / vídeos cortos para redes</label>
+        <label class="tt-check-label"><input type="checkbox" value="No hago contenido en vídeo"> No hago contenido en vídeo</label>
+      </div>
+    </div>
+    <div class="tt-divider"></div>
+    <div class="tt-field">
+      <label class="tt-label">Gestión y administración</label>
+      <div class="tt-checkbox-group" id="cg_gestion">
+        <label class="tt-check-label"><input type="checkbox" value="Programa para facturas/presupuestos"> Uso algún programa para facturas / presupuestos</label>
+        <label class="tt-check-label"><input type="checkbox" value="Excel/Google Sheets"> Lo llevo todo en Excel / Google Sheets</label>
+        <label class="tt-check-label"><input type="checkbox" value="Gestor/asesor externo"> Tengo gestor/asesor que se encarga</label>
+        <label class="tt-check-label"><input type="checkbox" value="Agenda digital (Google Calendar, Notion...)"> Uso agenda digital (Google Calendar, Notion...)</label>
+        <label class="tt-check-label"><input type="checkbox" value="CRM para clientes"> Gestiono clientes con algún CRM</label>
+        <label class="tt-check-label"><input type="checkbox" value="Gestión de cabeza o papel"> Llevo la gestión "de cabeza" o en papel</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">Del 1 al 5, ¿cómo te sientes con la tecnología en general?</label>
+      <div style="margin-top:6px">
+        <div class="tt-scale" id="scale_tec">
+          <button type="button" class="tt-scale-btn" onclick="selectScale('scale_tec',1,this)">1</button>
+          <button type="button" class="tt-scale-btn" onclick="selectScale('scale_tec',2,this)">2</button>
+          <button type="button" class="tt-scale-btn" onclick="selectScale('scale_tec',3,this)">3</button>
+          <button type="button" class="tt-scale-btn" onclick="selectScale('scale_tec',4,this)">4</button>
+          <button type="button" class="tt-scale-btn" onclick="selectScale('scale_tec',5,this)">5</button>
+        </div>
+        <div class="tt-scale-labels"><span>Me pierdo 😅</span><span>Me manejo genial 💪</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 3 -->
+  <div class="tt-section-title">Redes sociales</div>
+  <div class="tt-block">
+    <div class="tt-block-header"><div class="tt-block-num">3</div><div class="tt-block-title">Tu presencia online</div></div>
+    <div class="tt-field">
+      <label class="tt-label">¿En qué redes tienes presencia activa?</label>
+      <div class="tt-checkbox-group" id="cg_rrss">
+        <label class="tt-check-label"><input type="checkbox" value="Instagram (red principal)"> Instagram (es mi red principal)</label>
+        <label class="tt-check-label"><input type="checkbox" value="Facebook"> Facebook</label>
+        <label class="tt-check-label"><input type="checkbox" value="LinkedIn"> LinkedIn</label>
+        <label class="tt-check-label"><input type="checkbox" value="TikTok"> TikTok</label>
+        <label class="tt-check-label"><input type="checkbox" value="Pinterest"> Pinterest</label>
+        <label class="tt-check-label"><input type="checkbox" value="Web propia"> Tengo web propia</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Con qué frecuencia publicas?</label>
+      <div class="tt-radio-group" data-name="frec">
+        <label class="tt-radio-label"><input type="radio" name="frec" value="Casi nunca"> Casi nunca</label>
+        <label class="tt-radio-label"><input type="radio" name="frec" value="1-2 veces/semana"> 1–2 veces/semana</label>
+        <label class="tt-radio-label"><input type="radio" name="frec" value="3-5 veces/semana"> 3–5 veces/semana</label>
+        <label class="tt-radio-label"><input type="radio" name="frec" value="Cada día"> Cada día</label>
+        <label class="tt-radio-label"><input type="radio" name="frec" value="Sin regularidad"> Sin regularidad</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Qué tipo de contenido publicas habitualmente?</label>
+      <div class="tt-checkbox-group" id="cg_contenido">
+        <label class="tt-check-label"><input type="checkbox" value="Trabajos/proyectos terminados"> Trabajos y proyectos terminados</label>
+        <label class="tt-check-label"><input type="checkbox" value="Proceso creativo/behind the scenes"> Proceso creativo / behind the scenes</label>
+        <label class="tt-check-label"><input type="checkbox" value="Reels/vídeos cortos"> Reels / vídeos cortos</label>
+        <label class="tt-check-label"><input type="checkbox" value="Stories del día a día"> Stories del día a día</label>
+        <label class="tt-check-label"><input type="checkbox" value="Ofertas o promociones"> Ofertas o promociones</label>
+        <label class="tt-check-label"><input type="checkbox" value="Contenido educativo/consejos"> Contenido educativo / consejos</label>
+        <label class="tt-check-label"><input type="checkbox" value="Prácticamente no publico"> Prácticamente no publico</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 4 -->
+  <div class="tt-section-title">Tiempo y dinero</div>
+  <div class="tt-block">
+    <div class="tt-block-header"><div class="tt-block-num">4</div><div class="tt-block-title">Dónde se van tus horas y tu dinero</div></div>
+    <div class="tt-field">
+      <label class="tt-label">¿Qué tareas te consumen más tiempo cada semana?</label>
+      <span class="tt-hint">Selecciona las que más te pesan</span>
+      <div class="tt-checkbox-group" id="cg_tiempo">
+        <label class="tt-check-label"><input type="checkbox" value="Hacer y enviar presupuestos"> Hacer y enviar presupuestos</label>
+        <label class="tt-check-label"><input type="checkbox" value="Responder mensajes y emails"> Responder mensajes y emails de clientes</label>
+        <label class="tt-check-label"><input type="checkbox" value="Crear contenido para redes"> Crear contenido para redes sociales</label>
+        <label class="tt-check-label"><input type="checkbox" value="Buscar inspiración y referencias"> Buscar inspiración y referencias</label>
+        <label class="tt-check-label"><input type="checkbox" value="Reuniones (presencial o videollamada)"> Reuniones (presenciales o videollamadas)</label>
+        <label class="tt-check-label"><input type="checkbox" value="Gestión administrativa y contabilidad"> Gestión administrativa y contabilidad</label>
+        <label class="tt-check-label"><input type="checkbox" value="Buscar nuevos clientes/prospección"> Buscar nuevos clientes / prospección</label>
+        <label class="tt-check-label"><input type="checkbox" value="Formación y aprender cosas nuevas"> Formación y aprender cosas nuevas</label>
+        <label class="tt-check-label"><input type="checkbox" value="Coordinación con proveedores/imprentas"> Coordinación con proveedores o imprentas</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Qué cosas delegas ahora y te suponen un coste?</label>
+      <div class="tt-checkbox-group" id="cg_delega">
+        <label class="tt-check-label"><input type="checkbox" value="Gestoría/asesoría fiscal"> Gestoría / asesoría fiscal</label>
+        <label class="tt-check-label"><input type="checkbox" value="Fotografía profesional"> Fotografía profesional de mis trabajos</label>
+        <label class="tt-check-label"><input type="checkbox" value="Edición de vídeo/Reels"> Edición de vídeo o Reels</label>
+        <label class="tt-check-label"><input type="checkbox" value="Gestión de redes sociales"> Gestión de redes sociales</label>
+        <label class="tt-check-label"><input type="checkbox" value="Diseño web/mantenimiento"> Diseño web o mantenimiento</label>
+        <label class="tt-check-label"><input type="checkbox" value="Copywriting/textos"> Copywriting / textos</label>
+        <label class="tt-check-label"><input type="checkbox" value="No delego nada, lo hago todo yo"> No delego nada, lo hago todo yo</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Cuánto gastas aproximadamente al mes en suscripciones y herramientas digitales?</label>
+      <div class="tt-radio-group" data-name="suscrip">
+        <label class="tt-radio-label"><input type="radio" name="suscrip" value="Menos de 30€"> Menos de 30€</label>
+        <label class="tt-radio-label"><input type="radio" name="suscrip" value="30-80€"> 30–80€</label>
+        <label class="tt-radio-label"><input type="radio" name="suscrip" value="80-150€"> 80–150€</label>
+        <label class="tt-radio-label"><input type="radio" name="suscrip" value="Más de 150€"> Más de 150€</label>
+        <label class="tt-radio-label"><input type="radio" name="suscrip" value="No lo sé exactamente"> No lo sé exactamente</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 5 -->
+  <div class="tt-section-title">Inteligencia artificial</div>
+  <div class="tt-block">
+    <div class="tt-block-header"><div class="tt-block-num">5</div><div class="tt-block-title">Qué sabes y qué piensas de la IA</div></div>
+    <div class="tt-field">
+      <label class="tt-label">¿Has usado alguna herramienta de IA?</label>
+      <div class="tt-radio-group" data-name="usoia">
+        <label class="tt-radio-label"><input type="radio" name="usoia" value="Nunca"> Nunca</label>
+        <label class="tt-radio-label"><input type="radio" name="usoia" value="Alguna vez por curiosidad"> Alguna vez por curiosidad</label>
+        <label class="tt-radio-label"><input type="radio" name="usoia" value="Sí, con cierta regularidad"> Sí, con cierta regularidad</label>
+        <label class="tt-radio-label"><input type="radio" name="usoia" value="La uso casi cada día"> La uso casi cada día</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Cuáles conoces o has probado?</label>
+      <div class="tt-checkbox-group" id="cg_ia_tools">
+        <label class="tt-check-label"><input type="checkbox" value="Claude (Anthropic)"> Claude (Anthropic) — recomendado en este curso</label>
+        <label class="tt-check-label"><input type="checkbox" value="ChatGPT"> ChatGPT</label>
+        <label class="tt-check-label"><input type="checkbox" value="Gemini (Google)"> Gemini (Google)</label>
+        <label class="tt-check-label"><input type="checkbox" value="Midjourney/DALL-E/Firefly (imágenes)"> Midjourney / DALL·E / Firefly (imágenes)</label>
+        <label class="tt-check-label"><input type="checkbox" value="CapCut IA/Runway (vídeo)"> CapCut IA / Runway (vídeo con IA)</label>
+        <label class="tt-check-label"><input type="checkbox" value="Ninguna todavía"> Ninguna todavía</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Qué es la IA para ti ahora mismo?</label>
+      <div class="tt-radio-group" data-name="iapercep">
+        <label class="tt-radio-label"><input type="radio" name="iapercep" value="Un misterio que me da un poco de miedo"> Un misterio que me da un poco de miedo</label>
+        <label class="tt-radio-label"><input type="radio" name="iapercep" value="Algo interesante que no sé cómo usar"> Algo interesante que no sé cómo usar</label>
+        <label class="tt-radio-label"><input type="radio" name="iapercep" value="Una herramienta que podría ayudarme mucho"> Una herramienta que podría ayudarme mucho</label>
+        <label class="tt-radio-label"><input type="radio" name="iapercep" value="Ya la uso pero quiero sacarle más partido"> Ya la uso pero quiero sacarle más partido</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 6 -->
+  <div class="tt-section-title">Objetivos</div>
+  <div class="tt-block">
+    <div class="tt-block-header"><div class="tt-block-num">6</div><div class="tt-block-title">Qué quieres conseguir</div></div>
+    <div class="tt-field">
+      <label class="tt-label">¿Qué quieres que la IA haga por ti?</label>
+      <span class="tt-hint">Selecciona tus prioridades</span>
+      <div class="tt-checkbox-group" id="cg_objetivos">
+        <label class="tt-check-label"><input type="checkbox" value="Ahorrarme tiempo en tareas repetitivas"> Ahorrarme tiempo en tareas repetitivas</label>
+        <label class="tt-check-label"><input type="checkbox" value="Crear mejor contenido para redes"> Crear mejor contenido para redes</label>
+        <label class="tt-check-label"><input type="checkbox" value="Mejorar mi comunicación con clientes"> Mejorar mi comunicación con clientes</label>
+        <label class="tt-check-label"><input type="checkbox" value="Generar presupuestos y textos comerciales"> Generar presupuestos y textos comerciales</label>
+        <label class="tt-check-label"><input type="checkbox" value="Depender menos de personas externas"> Depender menos de personas externas</label>
+        <label class="tt-check-label"><input type="checkbox" value="Potenciar mi creatividad y mis ideas"> Potenciar mi creatividad y mis ideas</label>
+        <label class="tt-check-label"><input type="checkbox" value="Organizar mejor mi negocio y mi tiempo"> Organizar mejor mi negocio y mi tiempo</label>
+        <label class="tt-check-label"><input type="checkbox" value="Llegar a más clientes y crecer"> Llegar a más clientes y crecer</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Qué cambio concreto quieres notar en tu negocio en 3 meses?</label>
+      <textarea id="f_cambio" placeholder="Sé específica: ej. publicar 3 veces por semana sin estrés, tener mis presupuestos listos en 10 minutos..."></textarea>
+    </div>
+  </div>
+
+  <!-- BLOQUE 7 -->
+  <div class="tt-section-title">Tu forma de aprender</div>
+  <div class="tt-block">
+    <div class="tt-block-header"><div class="tt-block-num">7</div><div class="tt-block-title">Para que el curso funcione contigo</div></div>
+    <div class="tt-field">
+      <label class="tt-label">¿Cómo aprendes mejor?</label>
+      <div class="tt-radio-group" data-name="aprende">
+        <label class="tt-radio-label"><input type="radio" name="aprende" value="Muy visual, con ejemplos reales"> Muy visual, con ejemplos reales</label>
+        <label class="tt-radio-label"><input type="radio" name="aprende" value="Probando directamente"> Probando yo directamente</label>
+        <label class="tt-radio-label"><input type="radio" name="aprende" value="Primero entender, luego practicar"> Primero entender, luego practicar</label>
+        <label class="tt-radio-label"><input type="radio" name="aprende" value="Un poco de todo mezclado"> Un poco de todo mezclado</label>
+      </div>
+    </div>
+    <div class="tt-field">
+      <label class="tt-label">¿Hay algo que tu formador deba saber para adaptar las sesiones a ti?</label>
+      <span class="tt-hint">Ritmo, concentración, TDAH, tecnofobia, poco tiempo entre sesiones... todo ayuda</span>
+      <textarea id="f_adaptar" placeholder="Cuéntale con confianza..."></textarea>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="tt-submit-area" id="submitArea">
+    <button class="tt-btn-submit" id="btnSubmit" onclick="submitForm()">Enviar mi diagnóstico ✓</button>
+    <p class="tt-submit-note">Tu formador recibirá un informe completo y activará tu primer módulo</p>
+    <p class="tt-sending" id="sendingMsg">⏳ Enviando diagnóstico... un momento</p>
+    <div class="tt-error" id="errorMsg">Ha habido un problema al enviar. Por favor, inténtalo de nuevo.</div>
+  </div>
+
+  <div class="tt-success" id="successMsg">
+    <div class="tt-success-icon">✓</div>
+    <h2 id="successName">¡Perfecto!</h2>
+    <p>Tu diagnóstico ha sido enviado correctamente.<br>Tu formador lo revisará y pronto tendrás el primer módulo activo.<br><br>¡Hasta muy pronto! 🌿</p>
+  </div>
+
+  <div class="tt-locked-banner">
+    <div class="tt-locked-icon">🔒</div>
+    <div class="tt-locked-title">Módulo 1 · Pendiente de activación</div>
+    <div class="tt-locked-text">Tu formador activará el primer módulo una vez haya revisado tu diagnóstico</div>
+  </div>
+
+</main>
+
+<footer class="tt-footer">
+  <span>TRIB & TRIP</span> · Formación IA personalizada · 2025
+</footer>
+
+<script>
+  // ——— CONFIGURACIÓN ———
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyWd5qedtA7sosjA4qBEJ5twFg9IQJ_ViM2PU9z6FddidmqaVUCnNYTi5pMb7Fw3ZFR/exec';// ← Pega aquí tu Web App URL
+
+  const scales = {};
+  const TOTAL = 7;
+
+  // ——— RADIO BUTTONS ———
+  document.querySelectorAll('.tt-radio-group').forEach(group => {
+    group.querySelectorAll('.tt-radio-label').forEach(label => {
+      label.addEventListener('click', function() {
+        group.querySelectorAll('.tt-radio-label').forEach(l => l.classList.remove('selected'));
+        this.classList.add('selected');
+        updateProgress();
+      });
+    });
+  });
+
+  // ——— ESCALAS ———
+  function selectScale(id, val, btn) {
+    document.getElementById(id).querySelectorAll('.tt-scale-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    scales[id] = val;
+    updateProgress();
+  }
+
+  // ——— CHECKBOXES ———
+  document.querySelectorAll('input[type=checkbox]').forEach(el => el.addEventListener('change', updateProgress));
+  document.querySelectorAll('input[type=text], input[type=email], textarea').forEach(el => el.addEventListener('input', updateProgress));
+
+  // ——— PROGRESO ———
+  function updateProgress() {
+    let done = 0;
+    if (document.getElementById('f_nombre').value.trim().length > 1) done++;
+    if (document.querySelector('input[name="horas"]:checked')) done++;
+    if (scales['scale_tec']) done++;
+    if (document.querySelector('input[name="frec"]:checked')) done++;
+    if (document.querySelector('input[name="suscrip"]:checked')) done++;
+    if (document.querySelector('input[name="usoia"]:checked')) done++;
+    if (document.querySelector('input[name="aprende"]:checked')) done++;
+    const pct = Math.round((done / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = done + ' de ' + TOTAL + ' bloques completados';
+  }
+
+  // ——— RECOGER DATOS ———
+  function checks(groupId) {
+    const group = document.getElementById(groupId);
+    if (!group) return '—';
+    const vals = [...group.querySelectorAll('input[type=checkbox]:checked')].map(c => c.value);
+    return vals.length ? vals.join(' | ') : '—';
+  }
+  function radio(name) {
+    const el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '—';
+  }
+  function val(id) {
+    const el = document.getElementById(id);
+    return el && el.value.trim() ? el.value.trim() : '—';
+  }
+
+  function collectData() {
+    return {
+      timestamp: new Date().toISOString(),
+      nombre: val('f_nombre'),
+      email: val('f_email'),
+      negocio: val('f_negocio'),
+      // Bloque 1
+      contexto_vital: checks('cg_contexto'),
+      horas_negocio: radio('horas'),
+      // Bloque 2
+      herramientas_diseno: checks('cg_diseno'),
+      herramientas_foto_video: checks('cg_video'),
+      herramientas_gestion: checks('cg_gestion'),
+      nivel_tecnologico: scales['scale_tec'] ? String(scales['scale_tec']) : '—',
+      // Bloque 3
+      rrss_presencia: checks('cg_rrss'),
+      rrss_frecuencia: radio('frec'),
+      rrss_contenido: checks('cg_contenido'),
+      // Bloque 4
+      tareas_tiempo: checks('cg_tiempo'),
+      delega_costes: checks('cg_delega'),
+      gasto_suscripciones: radio('suscrip'),
+      // Bloque 5
+      ia_uso: radio('usoia'),
+      ia_herramientas: checks('cg_ia_tools'),
+      ia_percepcion: radio('iapercep'),
+      // Bloque 6
+      objetivos_ia: checks('cg_objetivos'),
+      cambio_3meses: val('f_cambio'),
+      // Bloque 7
+      forma_aprender: radio('aprende'),
+      adaptaciones: val('f_adaptar')
+    };
+  }
+
+  // ——— SUBMIT ———
+  function submitForm() {
+    const data = collectData();
+    const btn = document.getElementById('btnSubmit');
+    const sending = document.getElementById('sendingMsg');
+    const errorMsg = document.getElementById('errorMsg');
+
+    btn.disabled = true;
+    sending.style.display = 'block';
+    errorMsg.style.display = 'none';
+
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(() => showSuccess(data.nombre))
+    .catch(() => {
+      sending.style.display = 'none';
+      errorMsg.style.display = 'block';
+      btn.disabled = false;
+    });
+  }
+
+  function showSuccess(nombre) {
+    document.getElementById('submitArea').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('successName').textContent = '¡Perfecto' + (nombre !== '—' ? ', ' + nombre.split(' ')[0] : '') + '!';
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressLabel').textContent = 'Diagnóstico enviado ✓';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

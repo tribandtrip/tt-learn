@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulos · TT-Learn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --verde: #4A5E3A; --arena: #EDE8DF; --ocre: #C4A35A; --carbon: #2D2D2D; --blanco: #ffffff; --borde: #E0DDD6; }
+    body { font-family: 'Inter', sans-serif; background: var(--arena); color: var(--carbon); min-height: 100vh; }
+    .tt-header { background: var(--verde); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .tt-nav-back { color: rgba(237,232,223,.7); font-size: .78rem; text-decoration: none; display: flex; align-items: center; gap: .4rem; transition: color .2s; }
+    .tt-nav-back:hover { color: var(--arena); }
+    .tt-badge { background: rgba(237,232,223,.15); color: var(--arena); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(237,232,223,.3); }
+    .tt-hero { background: var(--verde); padding: 2.5rem 2rem 3.5rem; text-align: center; }
+    .tt-course-label { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ocre); margin-bottom: .6rem; font-weight: 500; }
+    .tt-hero h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 700; color: var(--arena); margin-bottom: .5rem; line-height: 1.2; }
+    .tt-hero-sub { font-size: .88rem; color: rgba(237,232,223,.7); font-weight: 300; max-width: 460px; margin: 0 auto; line-height: 1.65; }
+    .tt-body { padding: 2rem 1.5rem; max-width: 720px; margin: 0 auto; }
+    .tt-locked-hero { background: var(--blanco); border-radius: 20px; padding: 2.5rem 2rem; text-align: center; margin-bottom: 1.5rem; border: 2px dashed var(--ocre); }
+    .tt-locked-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .tt-locked-hero h2 { font-family: 'DM Sans', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--carbon); margin-bottom: .5rem; }
+    .tt-locked-hero p { font-size: .83rem; color: #777; line-height: 1.65; margin-bottom: 1.25rem; }
+    .tt-locked-hero a { display: inline-block; background: var(--verde); color: var(--arena); font-family: 'DM Sans', sans-serif; font-size: .82rem; font-weight: 600; padding: .65rem 1.5rem; border-radius: 25px; text-decoration: none; }
+    .tt-section-title { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--verde); font-weight: 500; margin: 2rem 0 .85rem; }
+    .tt-modulo-card { background: var(--blanco); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: .75rem; border: 1.5px solid var(--borde); display: flex; align-items: center; gap: 1rem; opacity: .55; }
+    .tt-modulo-card.active { opacity: 1; border-color: var(--verde); }
+    .tt-modulo-num { width: 40px; height: 40px; border-radius: 10px; background: var(--arena); color: var(--verde); font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .tt-modulo-card.active .tt-modulo-num { background: var(--verde); color: var(--arena); }
+    .tt-modulo-body { flex: 1; }
+    .tt-modulo-title { font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 700; color: var(--carbon); margin-bottom: .2rem; }
+    .tt-modulo-desc { font-size: .75rem; color: #888; }
+    .tt-modulo-status { font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #bbb; flex-shrink: 0; }
+    .tt-modulo-card.active .tt-modulo-status { color: var(--verde); }
+    .tt-footer { background: var(--carbon); color: rgba(237,232,223,.45); text-align: center; padding: 1.5rem; font-size: .68rem; letter-spacing: .08em; margin-top: 3rem; }
+    .tt-footer span { color: var(--ocre); }
+    @media (max-width: 480px) {
+      .tt-header { padding: 1rem 1.25rem; }
+      .tt-body { padding: 1.25rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="tt-header">
+  <a href="index.html" class="tt-nav-back">← Inicio</a>
+  <div class="tt-badge">Módulos del curso</div>
+</header>
+
+<section class="tt-hero">
+  <div class="tt-course-label">Tu curso · Paso 3</div>
+  <h1>Módulos de formación</h1>
+  <p class="tt-hero-sub">Los módulos se activan sesión a sesión, adaptados a tu diagnóstico y tu progreso</p>
+</section>
+
+<div class="tt-body">
+
+  <div class="tt-locked-hero">
+    <div class="tt-locked-icon">🔒</div>
+    <h2>Módulos pendientes de activación</h2>
+    <p>Para acceder a los módulos primero debes completar el diagnóstico inicial. Tu formador revisará tus respuestas y activará el primer módulo adaptado a ti.</p>
+    <a href="diagnostico.html">Completar el diagnóstico →</a>
+  </div>
+
+  <div class="tt-section-title">Módulos previstos</div>
+
+  <div class="tt-modulo-card">
+    <div class="tt-modulo-num">1</div>
+    <div class="tt-modulo-body">
+      <div class="tt-modulo-title">Qué es la IA y cómo piensa</div>
+      <div class="tt-modulo-desc">Conceptos clave, cómo funciona Claude, primeros prompts</div>
+    </div>
+    <div class="tt-modulo-status">🔒 Bloqueado</div>
+  </div>
+
+  <div class="tt-modulo-card">
+    <div class="tt-modulo-num">2</div>
+    <div class="tt-modulo-body">
+      <div class="tt-modulo-title">Entrenando tu IA de marca</div>
+      <div class="tt-modulo-desc">Prompts de negocio, contexto de marca, tono de voz</div>
+    </div>
+    <div class="tt-modulo-status">🔒 Bloqueado</div>
+  </div>
+
+  <div class="tt-modulo-card">
+    <div class="tt-modulo-num">3</div>
+    <div class="tt-modulo-body">
+      <div class="tt-modulo-title">IA para redes sociales</div>
+      <div class="tt-modulo-desc">Copies, calendarios, Reels, estrategia de contenido</div>
+    </div>
+    <div class="tt-modulo-status">🔒 Bloqueado</div>
+  </div>
+
+  <div class="tt-modulo-card">
+    <div class="tt-modulo-num">4</div>
+    <div class="tt-modulo-body">
+      <div class="tt-modulo-title">Automatizar la relación con clientes</div>
+      <div class="tt-modulo-desc">Presupuestos, respuestas, seguimiento, onboarding</div>
+    </div>
+    <div class="tt-modulo-status">🔒 Bloqueado</div>
+  </div>
+
+  <div class="tt-modulo-card">
+    <div class="tt-modulo-num">5</div>
+    <div class="tt-modulo-body">
+      <div class="tt-modulo-title">IA para diseño y creatividad</div>
+      <div class="tt-modulo-desc">Canva + IA, generación de imágenes, briefs creativos</div>
+    </div>
+    <div class="tt-modulo-status">🔒 Bloqueado</div>
+  </div>
+
+  <div class="tt-modulo-card">
+    <div class="tt-modulo-num">6</div>
+    <div class="tt-modulo-body">
+      <div class="tt-modulo-title">Tu sistema IA propio</div>
+      <div class="tt-modulo-desc">Flujos de trabajo, herramientas combinadas, autonomía total</div>
+    </div>
+    <div class="tt-modulo-status">🔒 Bloqueado</div>
+  </div>
+
+</div>
+
+<footer class="tt-footer">
+  <span>TRIB & TRIP</span> · TT-Learn · Formación IA personalizada · 2025
+</footer>
+
+</body>
+</html>

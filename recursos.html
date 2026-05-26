@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursos previos · TT-Learn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --verde: #4A5E3A; --arena: #EDE8DF; --ocre: #C4A35A; --carbon: #2D2D2D; --blanco: #ffffff; --borde: #E0DDD6; }
+    body { font-family: 'Inter', sans-serif; background: var(--arena); color: var(--carbon); min-height: 100vh; }
+    .tt-header { background: var(--verde); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .tt-nav-back { color: rgba(237,232,223,.7); font-size: .78rem; text-decoration: none; display: flex; align-items: center; gap: .4rem; transition: color .2s; }
+    .tt-nav-back:hover { color: var(--arena); }
+    .tt-badge { background: rgba(237,232,223,.15); color: var(--arena); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(237,232,223,.3); }
+    .tt-hero { background: var(--verde); padding: 2.5rem 2rem 3.5rem; text-align: center; }
+    .tt-course-label { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ocre); margin-bottom: .6rem; font-weight: 500; }
+    .tt-hero h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 700; color: var(--arena); margin-bottom: .5rem; line-height: 1.2; }
+    .tt-hero-sub { font-size: .88rem; color: rgba(237,232,223,.7); font-weight: 300; max-width: 460px; margin: 0 auto; line-height: 1.65; }
+    .tt-body { padding: 2rem 1.5rem; max-width: 720px; margin: 0 auto; }
+    .tt-intro-card { background: var(--blanco); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--ocre); }
+    .tt-intro-card h2 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .tt-intro-card p { font-size: .83rem; color: #666; line-height: 1.65; }
+    .tt-section-title { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--verde); font-weight: 500; margin: 2rem 0 .85rem; }
+    .tt-curso-card { background: var(--blanco); border-radius: 14px; padding: 1.5rem; margin-bottom: .85rem; border: 1.5px solid var(--borde); display: flex; gap: 1.25rem; align-items: flex-start; transition: all .2s; }
+    .tt-curso-card:hover { border-color: var(--verde); transform: translateY(-1px); }
+    .tt-curso-card.recomendado { border-color: var(--verde); }
+    .tt-curso-icon { font-size: 2rem; flex-shrink: 0; width: 52px; height: 52px; background: var(--arena); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+    .tt-curso-body { flex: 1; }
+    .tt-curso-tag { font-size: .6rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: .4rem; }
+    .tt-curso-tag.must { background: var(--verde); color: var(--arena); }
+    .tt-curso-tag.optional { background: var(--arena); color: var(--verde); border: 1px solid var(--verde); }
+    .tt-curso-tag.skip { background: #f0f0f0; color: #999; }
+    .tt-curso-title { font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 700; color: var(--carbon); margin-bottom: .3rem; }
+    .tt-curso-desc { font-size: .78rem; color: #666; line-height: 1.55; margin-bottom: .75rem; }
+    .tt-curso-meta { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: .85rem; }
+    .tt-meta-pill { font-size: .68rem; color: #888; background: var(--arena); padding: 3px 10px; border-radius: 10px; }
+    .tt-curso-btn { display: inline-block; background: var(--verde); color: var(--arena); font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 600; padding: .5rem 1.1rem; border-radius: 20px; text-decoration: none; transition: all .2s; }
+    .tt-curso-btn:hover { background: #3a4c2c; }
+    .tt-curso-btn.disabled { background: #ddd; color: #999; cursor: not-allowed; pointer-events: none; }
+    .tt-checklist-reminder { background: var(--verde); border-radius: 14px; padding: 1.25rem 1.5rem; margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+    .tt-checklist-reminder-text h3 { font-family: 'DM Sans', sans-serif; font-size: .92rem; font-weight: 700; color: var(--arena); margin-bottom: .2rem; }
+    .tt-checklist-reminder-text p { font-size: .75rem; color: rgba(237,232,223,.7); }
+    .tt-checklist-reminder a { display: inline-block; background: var(--ocre); color: var(--carbon); font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 700; padding: .5rem 1.1rem; border-radius: 20px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .tt-footer { background: var(--carbon); color: rgba(237,232,223,.45); text-align: center; padding: 1.5rem; font-size: .68rem; letter-spacing: .08em; margin-top: 3rem; }
+    .tt-footer span { color: var(--ocre); }
+    @media (max-width: 480px) {
+      .tt-curso-card { flex-direction: column; gap: .85rem; }
+      .tt-header { padding: 1rem 1.25rem; }
+      .tt-body { padding: 1.25rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="tt-header">
+  <a href="index.html" class="tt-nav-back">← Inicio</a>
+  <div class="tt-badge">Recursos previos</div>
+</header>
+
+<section class="tt-hero">
+  <div class="tt-course-label">Antes de empezar · Paso 2</div>
+  <h1>Recursos recomendados</h1>
+  <p class="tt-hero-sub">Dos cursos cortos y gratuitos para llegar a las sesiones con conceptos básicos claros</p>
+</section>
+
+<div class="tt-body">
+
+  <div class="tt-intro-card">
+    <h2>¿Para qué sirven estos recursos? 💡</h2>
+    <p>No son obligatorios, pero si los haces antes de la primera sesión, aprovecharás mucho mejor el tiempo juntos. Son cortos, gratuitos y sin tecnicismos. Menos de 1 hora en total.</p>
+  </div>
+
+  <div class="tt-section-title">Recomendados · Hazlos antes de la primera sesión</div>
+
+  <div class="tt-curso-card recomendado">
+    <div class="tt-curso-icon">🤖</div>
+    <div class="tt-curso-body">
+      <span class="tt-curso-tag must">Recomendado</span>
+      <div class="tt-curso-title">Introducción a la IA Generativa</div>
+      <div class="tt-curso-desc">Qué es la IA generativa, cómo funciona y en qué se diferencia de otras tecnologías. Sin matemáticas, sin código. Perfecto para empezar desde cero.</div>
+      <div class="tt-curso-meta">
+        <span class="tt-meta-pill">Google Cloud</span>
+        <span class="tt-meta-pill">~45 minutos</span>
+        <span class="tt-meta-pill">Gratuito</span>
+        <span class="tt-meta-pill">Insignia digital</span>
+        <span class="tt-meta-pill">En español</span>
+      </div>
+      <a href="https://www.cloudskillsboost.google/paths/118/course_templates/536?locale=es" target="_blank" class="tt-curso-btn">Ir al curso →</a>
+    </div>
+  </div>
+
+  <div class="tt-curso-card recomendado">
+    <div class="tt-curso-icon">⚖️</div>
+    <div class="tt-curso-body">
+      <span class="tt-curso-tag must">Recomendado</span>
+      <div class="tt-curso-title">Introducción a la IA Responsable</div>
+      <div class="tt-curso-desc">Qué puede y no puede hacer la IA, riesgos, derechos de autor, privacidad. Muy relevante si usas IA en tu trabajo creativo con clientes.</div>
+      <div class="tt-curso-meta">
+        <span class="tt-meta-pill">Google Cloud</span>
+        <span class="tt-meta-pill">~15 minutos</span>
+        <span class="tt-meta-pill">Gratuito</span>
+        <span class="tt-meta-pill">Insignia digital</span>
+        <span class="tt-meta-pill">En español</span>
+      </div>
+      <a href="https://www.cloudskillsboost.google/paths/118?locale=es" target="_blank" class="tt-curso-btn">Ir al curso →</a>
+    </div>
+  </div>
+
+  <div class="tt-section-title">Opcionales · Para cuando ya tengas base</div>
+
+  <div class="tt-curso-card">
+    <div class="tt-curso-icon">🛡️</div>
+    <div class="tt-curso-body">
+      <span class="tt-curso-tag optional">Opcional</span>
+      <div class="tt-curso-title">Safe, Fair & Legal: How to Use AI Right</div>
+      <div class="tt-curso-desc">Aspectos legales y éticos del uso de la IA. Interesante una vez ya tengas práctica con las herramientas.</div>
+      <div class="tt-curso-meta">
+        <span class="tt-meta-pill">Santander Open Academy</span>
+        <span class="tt-meta-pill">~2-3 horas</span>
+        <span class="tt-meta-pill">Gratuito</span>
+        <span class="tt-meta-pill">Certificado</span>
+      </div>
+      <a href="https://app.santanderopenacademy.com/es/course/safe-fair-legal-how-to-use-ai-right" target="_blank" class="tt-curso-btn">Ir al curso →</a>
+    </div>
+  </div>
+
+  <div class="tt-curso-card">
+    <div class="tt-curso-icon">🚫</div>
+    <div class="tt-curso-body">
+      <span class="tt-curso-tag skip">No recomendado ahora</span>
+      <div class="tt-curso-title">Master AI with Gemini</div>
+      <div class="tt-curso-desc">En este curso aprenderás Claude como herramienta principal. Empezar con Gemini puede crear confusión. Déjalo para más adelante si tienes curiosidad.</div>
+      <div class="tt-curso-meta">
+        <span class="tt-meta-pill">Santander Open Academy</span>
+        <span class="tt-meta-pill">~3-4 horas</span>
+        <span class="tt-meta-pill">Gratuito</span>
+      </div>
+      <a class="tt-curso-btn disabled">No por ahora</a>
+    </div>
+  </div>
+
+  <div class="tt-checklist-reminder">
+    <div class="tt-checklist-reminder-text">
+      <h3>¿Aún no has hecho el diagnóstico?</h3>
+      <p>Es el primer paso. Sin él, el curso no se activa.</p>
+    </div>
+    <a href="diagnostico.html">Ir al diagnóstico →</a>
+  </div>
+
+</div>
+
+<footer class="tt-footer">
+  <span>TRIB & TRIP</span> · TT-Learn · Formación IA personalizada · 2025
+</footer>
+
+</body>
+</html>
